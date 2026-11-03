@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Zabbia Team Email Signatures</title>
+<style>
+:root{--bg:#F3F5F8;--panel:#fff;--ink:#13233A;--muted:#5B6878;--line:#D9E0E8;--blue:#1C5D87;--gold:#D9BF2E;--ok:#1E7A46}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+header img{width:200px;height:auto}
+h1{font-size:22px;margin:0}
+p{margin:4px 0 0;color:var(--muted)}
+.step{font-size:12px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.person{border:2px solid var(--line);background:#fff;border-radius:10px;padding:10px;cursor:pointer;text-align:center;font:600 13px Arial,sans-serif;color:var(--ink)}
+.person img{width:64px;height:64px;display:block;margin:0 auto 6px}
+.person[aria-pressed="true"]{border-color:var(--blue);background:#EAF2F8}
+.sigbox{border:1px solid var(--line);border-radius:8px;padding:18px;overflow-x:auto;background:#fff}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+button.btn{font:bold 14px Arial,sans-serif;border-radius:6px;padding:10px 16px;cursor:pointer;border:1px solid var(--blue)}
+.primary{background:var(--blue);color:#fff}.ghost{background:#fff;color:var(--blue)}
+.status{color:var(--ok);font-weight:bold;font-size:14px}
+label{display:block;font-size:13px;color:var(--muted);margin-top:14px}
+input{width:100%;max-width:520px;font:14px Arial,sans-serif;padding:8px 10px;border:1px solid var(--line);border-radius:6px;margin-top:4px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font:600 13px Arial,sans-serif;color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+ol{margin:0;padding-left:20px}ol li{margin:6px 0}
+textarea{width:100%;height:100px;font:12px Consolas,monospace;margin-top:10px}
+.hint{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header>
+  <img src="logo.png" alt="The Zabbia Insurance Agency">
+  <div><h1>Team Email Signatures</h1><p>Pick your name, copy your signature, and follow the steps for each place you send email from.</p></div>
+ </header>
+
+ <section class="panel"><div class="step">Step 1 · Pick your name</div><div class="team" id="team"></div></section>
+
+ <section class="panel">
+  <div class="step">Step 2 · Check and copy</div>
+  <div class="sigbox" id="preview"></div>
+  <label for="book">Microsoft Bookings link (optional). Paste yours to add a "Book an appointment" link. Setup instructions are on <a href="https://gateway.allstate.com/id/304505" target="_blank" rel="noopener">Gateway</a>.</label>
+  <input id="book" type="url" placeholder="https://outlook.office365.com/book/...">
+  <div class="row">
+   <button class="btn primary" id="copySig" type="button">Copy signature</button>
+   <button class="btn ghost" id="copyHtml" type="button">Copy HTML code</button>
+   <span class="status" id="status" role="status"></span>
+  </div>
+  <textarea id="code" readonly hidden aria-label="Signature HTML code"></textarea>
+ </section>
+
+ <section class="panel">
+  <div class="step">Step 3 · Install it</div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="howto"></div>
+  <p class="hint">Questions? Ask Victoria or Rob.</p>
+ </section>
+</div>
+<script>
+var BASE="https://rzabbia.github.io/email-signatures/";
+var TEAM=[
+ ["Robert Zabbia","Agency Owner"],["Denise Milito","Managing Director"],
+ ["Maria Gallegos-Duran","Licensed Sales Agent","Yo Hablo Español"],["Albert Drago","Licensed Agent, LUTCF, Life Specialist"],
+ ["Brett Faultless","Licensed Customer Advocate"],["Alyssa Evensen","Licensed Customer Advocate"],
+ ["Colin Reese","Licensed Sales Agent"],["Victoria Essig","Sales Support Representative/Marketing"],["Lori Lee","Sales Support Representative"]];
+var HOW={
+ "Outlook (desktop)":["Click <b>Copy signature</b> above.","In Outlook, go to <b>File → Options → Mail → Signatures</b>.","Click <b>New</b>, name it \"Zabbia\", and paste into the big edit box.","Set it as the default for <b>New messages</b> and <b>Replies/forwards</b>, then click <b>OK</b>."],
+ "Outlook (web)":["Click <b>Copy signature</b> above.","In Outlook on the web, click the gear → <b>Mail → Compose and reply</b>.","Under <b>Email signature</b>, paste, choose it as the default, and click <b>Save</b>."],
+ "eAgent":["Click <b>Copy HTML code</b> above.","In eAgent, open your email signature settings.","Switch the editor to <b>HTML / Source</b> view if there's an option, paste, and save.","Send yourself a test email to check the photo and banner show."],
+ "Lead Manager":["Click <b>Copy HTML code</b> above.","In Lead Manager, open your email signature settings.","If there's an <b>HTML / Source</b> option, paste the code there; otherwise click <b>Copy signature</b> and paste into the editor instead.","Save, then send yourself a test email."],
+ "iPhone":["Click <b>Copy signature</b> above and paste it into an email to yourself.","On your iPhone, open that email, press and hold the signature, and copy it.","Go to <b>Settings → Apps → Mail → Signature</b> and paste.","If it turns into plain text, shake the phone and tap <b>Undo Change Attributes</b>."]};
+var cur=TEAM[0],tab="Outlook (desktop)";
+function slug(n){return n.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function sig(p,book){
+ var B="#1C5D87",G="#4F4F4F",L=function(t,s){return t?'<div style="margin:0;'+(s||"")+'">'+t+'</div>':""};
+ var a=function(h,t,x){return '<a href="'+esc(h)+'" style="color:'+B+';text-decoration:none;'+(x||"")+'">'+t+'</a>'};
+ var ok=/^https?:\/\//i.test(book||"");
+ return '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr>'+
+ '<td valign="top" style="padding-right:16px;"><img src="'+BASE+'photos/'+slug(p[0])+'.png" width="90" height="90" alt="'+esc(p[0])+'" style="display:block;border:0;width:90px;height:90px;"></td>'+
+ '<td valign="top" style="border-left:3px solid #D9BF2E;padding-left:16px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:'+G+';">'+
+ L(esc(p[0]),'font-size:18px;line-height:23px;font-weight:bold;color:'+B+';')+L(esc(p[1]),'font-weight:bold;color:'+G+';padding-bottom:6px;')+
+ L('<b style="color:#333333;">The Zabbia Insurance Agency, Inc.</b>')+L('T: 516-799-3800 &nbsp; F: 516-799-5424')+L(esc(p[2]))+L('744 N Broadway, N Massapequa, NY 11758')+
+ (ok?L(a(book,'Book an appointment &rsaquo;','font-weight:bold;'),'padding-top:6px;'):"")+
+ L(a('https://zabbiaagency.com','zabbiaagency.com')+' &nbsp;|&nbsp; '+a('https://www.zabbiaagency.com','Get a Quote')+' &nbsp;|&nbsp; '+a('https://www.zabbiaagency.com','Leave a Review'),ok?"":'padding-top:6px;')+
+ '</td></tr><tr><td colspan="2" style="padding-top:14px;"><a href="https://zabbiaagency.com"><img src="'+BASE+'logo.png" width="200" height="51" alt="The Zabbia Insurance Agency" style="display:block;border:0;width:200px;height:51px;"></a></td></tr>'+
+ '<tr><td colspan="2" style="padding-top:10px;"><a href="https://www.zabbiaagency.com"><img src="'+BASE+'banner.png" width="520" height="90" alt="Zabbia Agency" style="display:block;border:0;width:520px;max-width:100%;height:auto;"></a></td></tr></table>';
+}
+function render(){
+ var h=sig(cur,document.getElementById("book").value.trim());
+ document.getElementById("preview").innerHTML=h;document.getElementById("code").value=h;
+ [].forEach.call(document.querySelectorAll(".person"),function(b){b.setAttribute("aria-pressed",String(b.dataset.n===cur[0]))});
+ [].forEach.call(document.querySelectorAll(".tab"),function(b){b.setAttribute("aria-selected",String(b.dataset.t===tab))});
+ document.getElementById("howto").innerHTML="<ol>"+HOW[tab].map(function(s){return"<li>"+s+"</li>"}).join("")+"</ol>";
+}
+function flash(m){var s=document.getElementById("status");s.textContent=m;clearTimeout(flash.t);flash.t=setTimeout(function(){s.textContent=""},5000)}
+TEAM.forEach(function(p){var b=document.createElement("button");b.type="button";b.className="person";b.dataset.n=p[0];
+ b.innerHTML='<img src="photos/'+slug(p[0])+'.png" alt="">'+esc(p[0]);b.onclick=function(){cur=p;document.getElementById("book").value="";render()};document.getElementById("team").appendChild(b)});
+Object.keys(HOW).forEach(function(k){var b=document.createElement("button");b.type="button";b.className="tab";b.setAttribute("role","tab");b.dataset.t=k;b.textContent=k;b.onclick=function(){tab=k;render()};document.getElementById("tabs").appendChild(b)});
+document.getElementById("book").addEventListener("input",render);
+document.getElementById("copySig").onclick=function(){
+ var h=document.getElementById("code").value;
+ function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById("preview"));var s=getSelection();s.removeAllRanges();s.addRange(r);var ok=false;try{ok=document.execCommand("copy")}catch(e){}s.removeAllRanges();flash(ok?"Copied. Now paste it where the steps below say.":"Copy was blocked. Select the signature and press Ctrl+C.")}
+ try{navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([h],{type:"text/html"}),"text/plain":new Blob([cur[0]],{type:"text/plain"})})]).then(function(){flash("Copied. Now paste it where the steps below say.")},fallback)}catch(e){fallback()}
+};
+document.getElementById("copyHtml").onclick=function(){var t=document.getElementById("code");
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(function(){flash("HTML code copied.")},function(){t.hidden=false;t.select();flash("Press Ctrl+C to copy the code.")})}else{t.hidden=false;t.select();flash("Press Ctrl+C to copy the code.")}};
+render();
+</script>
+</body>
+</html>
