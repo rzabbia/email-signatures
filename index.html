@@ -89,12 +89,12 @@ function sig(p,book){
  '<td valign="top" style="border-left:3px solid #D9BF2E;padding-left:16px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:'+G+';">'+
  L(esc(p[0]),'font-size:18px;line-height:23px;font-weight:bold;color:'+B+';')+L(esc(p[1]),'font-weight:bold;color:'+G+';padding-bottom:6px;')+
  L('<b style="color:#333333;">The Zabbia Insurance Agency, Inc.</b>')+L('T: 516-799-3800 &nbsp; F: 516-799-5424')+L(esc(p[2]))+L('744 N Broadway, N Massapequa, NY 11758')+
- L(a(BASE+'go/canopy.html','Compare your coverage in 2 minutes &rsaquo;','font-weight:bold;'),'padding-top:8px;')+
+ L(a('https://app.usecanopy.com/c/the-zabbia-insurance-agency-inc','Compare your coverage in 2 minutes &rsaquo;','font-weight:bold;'),'padding-top:8px;')+
  L('Securely connect your current insurer, no paperwork needed.','font-size:12px;color:#6B6B6B;')+
  (ok?L(a(book,'Book an appointment &rsaquo;','font-weight:bold;'),'padding-top:6px;'):"")+
- L(a('https://zabbiaagency.com','zabbiaagency.com')+' &nbsp;|&nbsp; '+a(BASE+'go/quote.html','Get a Quote')+' &nbsp;|&nbsp; '+a(BASE+'go/review.html','Leave a Review'),'padding-top:6px;')+
+ L(a('https://zabbiaagency.com','zabbiaagency.com')+' &nbsp;|&nbsp; '+a('https://www.zabbiaagency.com','Get a Quote')+' &nbsp;|&nbsp; '+a('https://www.zabbiaagency.com','Leave a Review'),'padding-top:6px;')+
  '</td></tr><tr><td colspan="2" style="padding-top:14px;"><a href="https://zabbiaagency.com"><img src="'+BASE+'logo.png" width="200" height="51" alt="The Zabbia Insurance Agency" style="display:block;border:0;width:200px;height:51px;"></a></td></tr>'+
- '<tr><td colspan="2" style="padding-top:10px;"><a href="'+BASE+'go/banner.html"><img src="'+BASE+'banner.png" width="520" height="90" alt="Zabbia Agency" style="display:block;border:0;width:520px;max-width:100%;height:auto;"></a></td></tr></table>';
+ '<tr><td colspan="2" style="padding-top:10px;"><a href="https://www.zabbiaagency.com"><img src="'+BASE+'banner.png" width="520" height="90" alt="Zabbia Agency" style="display:block;border:0;width:520px;max-width:100%;height:auto;"></a></td></tr></table>';
 }
 function render(){
  var h=sig(cur,document.getElementById("book").value.trim());
